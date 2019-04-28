@@ -1,3 +1,4 @@
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 /**
@@ -7,19 +8,29 @@ import javafx.scene.shape.Line;
  */
 public class Vertex {
 
-	private double point; 
+	private double pointX; 
+	private double pointY; 
 	private Edge[] edges; 
+	private Line pointDraw; 
 	
 	
-	Vertex(double point){
-		this.point = point; 
+	Vertex(double pointX, double pointY ){
+		this.pointX = pointX;
+		this.pointY = pointY;
 	}
 	// accept a number of edges and determine which ones intersect with this point
 
 	public Line getPoint(){
-		return new Line(point, point, point, point); 
+		this.pointDraw = new Line(pointX, pointY, pointX, pointY); 
+		pointDraw.setStroke(Color.RED);
+		pointDraw.setStrokeWidth(4);
+		return pointDraw; 
 	}
 	
+	/**
+	 * Every vertex has at least 2 edges leaving it. 
+	 * @param edges
+	 */
 	public void setEdges(Edge... edges ) {
 		this.edges = edges; 
 	}
@@ -34,12 +45,13 @@ public class Vertex {
 			double starty = edges[i].getLine().getStartY(); 
 			double endy = edges[i].getLine().getEndY(); 
 			
-			if (startx == point) count++; 
-			if (starty == point) count++; 
-			if (endx == point) count++; 
-			if (endy == point) count++; 
+			if (startx == pointX) count++; 
+			if (starty == pointY) count++; 
+			if (endx == pointX) count++; 
+			if (endy == pointY) count++; 
 			
 		}
-		return count / 2;  
+		return count / 4;  
 	}
+	
 }
